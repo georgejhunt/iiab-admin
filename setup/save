@@ -1,7 +1,7 @@
 #!/bin/bash -x
 # copy the functioning work files to repo, for saving
 
-MENUREPO=/opt/iiab/iiab-admin
+MENUREPO=/opt/iiab/iiab-admin-console
 MENUS_SERVER_DIR=/opt/admin/console/menus-edit
 if [ -f /etc/iiab/iiab.env ]; then
   source /etc/iiab/iiab.env

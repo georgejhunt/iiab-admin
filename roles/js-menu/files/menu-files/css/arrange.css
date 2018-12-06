@@ -60,7 +60,7 @@
 }
 #present {
    height:350px;
-   width: 550px;
+   width: 48%;
    background: white;
    overflow: scroll;
    float: left;
@@ -71,20 +71,22 @@
 }
 #available {
    height:350px;
-   width: 550px;
+   width: 48%;
    background: white;
    overflow: scroll;
+   float: right;
    padding: 10px;
    border: 1px solid #aaa;
    border-radius: 20px;
    margin-bottom: 2px;
 }
 #content {
+   height: 220px;
+   width: 97%;
    background: white;
-   height: 250px;
-   width: 1000px;
+   overflow: scroll;
    padding: 10px;
    border: 1px solid #aaa;
-   border-radius: 5px;
+   border-radius: 20px;
    margin: 10px;
 }
