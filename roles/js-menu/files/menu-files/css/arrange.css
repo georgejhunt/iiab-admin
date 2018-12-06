@@ -1,0 +1,90 @@
+/* use flexbox */
+.actions {
+   display: flex;
+   display: -webkit-flex;
+   justify-content: space-between;
+   height: 50px;
+}
+#actionsdiv {
+   flex-basis: 10%;
+}
+
+#header {
+    display: block;
+    height: 120px;
+    width:100%;
+    background: #000 url('/iiab-menu/menu-files/images/iiab_banner6.png') no-repeat 0 0;
+    border-radius: 5px;
+    margin: auto;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+    padding: 10px;
+    height: 350px; /* Should be removed. Only for demonstration */
+    width: 550px;
+}
+#left {
+   background: rgb(0,200,0);
+   height="50px"
+}
+#leftdiv {
+   flex-basis: 30%;
+}
+#right {
+   background: rgb(0,200,0);
+   height="50px"
+}
+#up {
+   background: rgb(0,200,0);
+   height="50px"
+}
+#updiv {
+   flex-basis:5%;
+}
+#down {
+   background: rgb(0,200,0);
+   height="50px"
+}
+#downdiv {
+   flex-basis:5%;
+}
+#lang {
+   width: 120px;
+}
+
+/* display row of data */
+.row {
+   display: inline-block;
+   margin: 5px;
+}
+#present {
+   height:350px;
+   width: 550px;
+   background: white;
+   overflow: scroll;
+   float: left;
+   padding: 10px;
+   border: 1px solid #aaa;
+   border-radius: 20px;
+   margin-bottom: 2px;
+}
+#available {
+   height:350px;
+   width: 550px;
+   background: white;
+   overflow: scroll;
+   padding: 10px;
+   border: 1px solid #aaa;
+   border-radius: 20px;
+   margin-bottom: 2px;
+}
+#content {
+   background: white;
+   height: 250px;
+   width: 1000px;
+   padding: 10px;
+   border: 1px solid #aaa;
+   border-radius: 5px;
+   margin: 10px;
+}

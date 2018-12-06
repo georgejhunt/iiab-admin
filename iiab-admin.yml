@@ -23,6 +23,7 @@
     iiab_home_url: /home
     # these belong somewhere else, but this makes them overrideable by iiab local vars
     js_menu_install: True
+    menus_edit_install: True
     cmdsrv_lower_job_priority_flag: "true" # json requires true, not True
     cmdsrv_lower_job_priority_str: "/usr/bin/nice -n19 /usr/bin/ionice -c2 -n7 "
     # because this is not globally in local vars we won't see iiab's role defaults
@@ -53,3 +54,8 @@
     include_role:
       name: js-menu
     when: js_menu_install
+
+  - name: menus-edit
+    include_role:
+      name: menus-edit
+    when: menus_edit_install

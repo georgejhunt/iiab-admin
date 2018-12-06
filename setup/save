@@ -1,0 +1,17 @@
+#!/bin/bash -x
+# copy the functioning work files to repo, for saving
+
+MENUREPO=/opt/iiab/iiab-admin
+MENUS_SERVER_DIR=/opt/admin/console/menus-edit
+if [ -f /etc/iiab/iiab.env ]; then
+  source /etc/iiab/iiab.env
+fi
+
+MENUDIR=$WWWROOT/js-menu
+cp -f $MENUS_SERVER_DIR/server.py $MENUREPO/roles/menus-edit/templates/server.py
+cp -f $MENUS_SERVER_DIR/index.html $MENUREPO/roles/menus-edit/files/menus-edit.html
+cp -f /etc/apache2/sites-available/menus-service.conf $MENUREPO/roles/menus-edit/templates
+cp -f $MENUDIR/menu-files/css/arrange.css $MENUREPO/roles/js-menu/files/menu-files/css/arrange.css
+cp -f $MENUDIR/menu-files/js/arrange.js $MENUREPO/roles/js-menu/files/menu-files/js/arrange.js
+
+ 
