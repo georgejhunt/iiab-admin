@@ -53,13 +53,27 @@ var resp = $.ajax({
 function available_clicked(element) {
    $( available_element ).css('background','#fff');
    available_element = element;
+   preview( element );
    $( element ).css('background','#0f0');
 }
 
 function visible_clicked(element) {
    $( present_element ).css('background','#fff');
    present_element = element;
+   preview( element );
    $( element ).css('background','#0f0');
+}
+
+function preview(element) {
+   var name = $( element ).data('name');
+   menuJson = '/home/menu.json';
+   //getMenuJson():
+   menuItems = [  name  ];
+   createScaffold();
+   defUrl = "http://10.10.123.13/js-menu/menu-files/menu-defs/";
+   showDescription = true
+   showExtraHtml = true
+   getMenuDef(name);
 }
 
 function onlanguage (element) {
