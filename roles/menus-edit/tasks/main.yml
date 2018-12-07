@@ -16,7 +16,7 @@
     mode: "{{ item.mode }}"
   with_items:
     - { src: roles/menus-edit/templates/server.py, dest: "{{ menus_service_dir }}/server.py", mode: '0755' }
-    - { src: roles/menus-edit/templates/menus-service.conf.j2, dest: "/etc/{{ apache_config_dir }}/menus-service.conf", mode: '0644' }
+    - { src: roles/menus-edit/templates/menus-service.conf, dest: "/etc/{{ apache_config_dir }}/menus-service.conf", mode: '0644' }
     - { src: roles/menus-edit/files/menus-edit.html, dest: "{{ menus_service_dir  }}/index.html", mode: '0644' }
 
 
