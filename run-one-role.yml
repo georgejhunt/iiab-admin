@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: yes
+
+  vars:
+    iiab_base: /opt/iiab
+    iiab_repo: "{{ iiab_base }}/iiab"
+    admin_install_base : /opt/admin
+
+  vars_files:
+  - vars/default_vars.yml
+  - vars/{{ ansible_local.local_facts.os_ver }}.yml
+  - /etc/iiab/local_vars.yml
+  - /etc/iiab/config_vars.yml
+
+  vars_files:
+  - "{{ iiab_repo }}/vars/default_vars.yml"
+  - "{{ iiab_repo }}/vars/{{ ansible_local.local_facts.os_ver }}.yml"
+  - vars/default_vars.yml
+  - vars/{{ ansible_distribution }}.yml
+
+  roles:
+#    - { role: 0-init, tags: ['0-init'] }
+    - { role: "{{ role_to_run }}", tags: ['run'] }
