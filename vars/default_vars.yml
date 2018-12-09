@@ -15,3 +15,6 @@ oer2go_cat_url : http://dev.worldpossible.org/cgi/json_api_v1.pl
 rachel_mods_url : rsync://dev.worldpossible.org/rachelmods/
 oer2go_mods_url : "{{ rachel_mods_url }}"
 iiab_modules_dir : "{{ doc_root }}/modules/"
+menus_iface_dir : "{{ admin_console_dir }}/menus-iface"
+db_scripts_dir : "{{ menus_iface_dir }}/scripts"
+assets_dir : "{{ doc_root }}/common/assets"
