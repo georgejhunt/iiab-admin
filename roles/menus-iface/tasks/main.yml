@@ -1,0 +1,15 @@
+- name: Make sure a directory exists for menus interface files
+  file:
+     state: directory
+     path: "{{ menus_iface_dir }}/scripts"
+
+- name: 'Copy scripts'
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: roles/menus-iface/templates/menudb.wsgi, dest: "{{ menus_iface_dir }}/menudb.wsgi", mode: '0755' }
+    - { src: roles/menus-iface/templates/load_db.py, dest: "{{ menus_iface_dir }}/scripts/load_db.py", mode: '0755' }
+    - { src: roles/menus-iface/templates/menuitem-lkup.py, dest: "{{ menus_iface_dir }}/scripts/menuitem-lkup.py", mode: '0755' }
+
