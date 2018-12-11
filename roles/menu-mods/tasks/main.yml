@@ -7,7 +7,7 @@
 - name: Make sure a directory exists for server
   file:
      state: directory
-     path: "{{ menus_service_dir }}"
+     path: "{{ menu_protected_dir }}"
 
 - name: 'Copy scripts'
   template:
@@ -15,9 +15,9 @@
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
   with_items:
-    - { src: roles/menus-edit/templates/server.py, dest: "{{ menus_service_dir }}/server.py", mode: '0755' }
+    - { src: roles/menus-edit/templates/menu-wsgi.py, dest: "{{ menu_db_dir }}/menu-wsgi.py", mode: '0755' }
     - { src: roles/menus-edit/templates/menus-service.conf, dest: "/etc/{{ apache_config_dir }}/menus-service.conf", mode: '0644' }
-    - { src: roles/menus-edit/files/menus-edit.html, dest: "{{ menus_service_dir  }}/index.html", mode: '0644' }
+    - { src: roles/menus-edit/files/menus-edit.html, dest: "{{ menu_protected_dir  }}/index.html", mode: '0644' }
 
 
 - name: Enable Apache's menus-service
