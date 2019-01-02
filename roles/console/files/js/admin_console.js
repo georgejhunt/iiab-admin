@@ -1958,7 +1958,7 @@ function formCommand(cmd_verb, args_name, args_obj)
 
 // monitor for awhile and use version if no problems present
 
-function sendCmdSrvCmd(command, callback, buttonId = '', errCallback, cmdArgs) {
+function sendCmdSrvCmd(command, callback, buttonId='', errCallback, cmdArgs) {
   // takes following arguments:
   //   command - Command to send to cmdsrv
   //   callback - Function to call on success
