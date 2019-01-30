@@ -24,6 +24,7 @@
     - "{{ admin_console_dir }}/help"
     - "{{ admin_console_dir }}/js"
     - "{{ admin_console_dir }}/htmlf"
+    - "{{ admin_console_dir }}/maps"
 
 - name: Copy admin-console css files
   copy: src={{ item }}
@@ -60,6 +61,20 @@
         group=root
   with_fileglob:
         - htmlf/*
+
+- name: Copy data for regional map selection
+  copy: src={{ item }}
+        dest="{{ admin_console_dir }}/maps"
+        mode=0644
+        owner=root
+        group=root
+  with_fileglob:
+        - maps/*
+
+- name: Fetch the javascript bundle with openlayers module, and map.js
+  get_url:
+     src: "{{ iiab_download_url }}"/map.js
+     dest: "{{ admin_console_dir }}/js/"
 
 - name: Install admin-console config file
   template: src=admin-console.conf.j2
