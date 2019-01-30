@@ -12,6 +12,7 @@
 				<li class="active"><a href="#instConStart">Get Started</a></li>
 				<li><a href="#instConZims" call-after="checkKiwixCatalogDate">Get ZIM Files from Kiwix</a></li>
 				<li><a href="#instConOer2go" call-after="oer2goMenuOption">Get OER2GO(RACHEL) Modules</a></li>
+				<li><a href="#instOsmRegion">Get Map Region</a></li>
 				<li><a href="#instConKAlite">Download Khan Academy Videos</a></li>
 				<li><a href="#instManageContent" call-after="manageContentInit">Manage Content</a></li>
 				<!-- <li><a href="#instRemoveContent" call-after="refreshAllInstalledList">Remove Content</a></li> -->
@@ -29,10 +30,11 @@
 			<div id="installContentOptions" class="tab-content"> <!-- Start Container for Sub Menu Options Panes -->
 				<div class="tab-pane active" id="instConStart"> <!-- Start instConStart Submenu Option Pane -->
 					<h2>Get Started</h2>
-					<p>The options on this menu allow you to copy, download and install content onto Internet-in-a-Box. This content comes from the internet or a portable hard disk drive.</p>
+					<p>The options on this menu allow you to download and install content onto Internet-in-a-Box. As of this release all of this content comes from the internet, but in the future there will be menu options to copy from a portable hard disk drive.</p>
 					<p>These options are aimed at people who plan to set up the server in a location where there is a relatively high bandwidth connection and then deploy it where there is little or no connectivity.</p>
 					<p>Options planned but not yet implemented</p>
 					<ul>
+						<li>Search for media-based content such as RACHEL or IIAB on removable media to permit installation.</li>
 						<li>Ability to set removable storage as working disk for downloads.</li>
 						<li>Flag to allow downloads of content to be valid only for each session.</li>
 					</ul>
@@ -61,6 +63,51 @@
 
 					<div id="Oer2goDownload" >  </div>
 				</div> <!--  End instConOer2go Submenu Option Pane -->
+				<div class="tab-pane" id="instOsmRegion"> <!-- Start instOsmRegion Submenu Option Pane -->
+					<h2>Install World Map, Select Region</h2>
+					<p>The World Map is based upon OpenStreetMap Data. It includes regional views of the whole world and details of a region you can select.</p>
+					<div class="row">
+						<div class="col-sm-4"><span id="osmDiskSpace" >Disk Space: </span></div>
+						<div class="col-sm-2"><button id="INST-MODS" type="button" class="btn btn-lg btn-primary">Install Selected Region</button></div>
+					</div>
+
+					<div id="osmRegionSelection" >
+               <style>
+                  #map-container{
+                    background-color: #b2d3f8; 
+                    float: right;
+                    width: 80%;
+                    right: 10px;
+                    height: 500px;
+                  }
+                </style>
+                  <div id="map-container"></div>
+                  <form>
+                    <div class="extract" data-region='{"name":"central_america"}'>
+                    <input type="checkbox" id="central_america" >Central America</input>
+                    </div>
+
+                    <div class="extract"  data-region='{"name":"south_america"}'>
+                    <input type="checkbox" >South America</input>
+                    </div>
+
+                    <div class="extract" data-region='{"name":"africa"}'>
+                    <input type="checkbox" id="africa" >Africa</input>
+                    </div>
+
+                    <div class="extract" data-region='{"name":"southeast_asia"}'>
+                    <input type="checkbox" id="southeast_asia" >Southeast Asia</input>
+                    </div>
+
+                    <div class="extract" data-region='{"name":"australia"}'>
+                    <input type="checkbox" id="australia" >Australia</input>
+                    </div>
+                  </form>
+
+              </div>
+				</div> <!--  End instOsmRegion Submenu Option Pane -->
+            <script src="js/maps.js"></script>
+            <script src="js/osmregion.js"></script>
 				<div class="tab-pane" id="instConKAlite"> <!-- Start instConKAlite Submenu Option Pane -->
 					<h2>Download Khan Academy Videos</h2>
 					<p>Khan Academ Lite has the ability to download selected portions of the available videos in several different languages.</p>
@@ -109,7 +156,7 @@
 
 					<div class="row">
 						<div class="col-sm-12">
-							<div id="instManageContentTabsPanes" class="tab-content">
+							<div id="instManageContentTabs" class="tab-content">
 								<div id="instManageContentInternal" class="tab-pane active">
 									<div class="row">
 										<div class="col-sm-12">
