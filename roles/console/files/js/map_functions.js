@@ -68,8 +68,8 @@ console.log(html);
 }
 
 function instMapItem(name) {
-  var command = "INST-MAP
-  var cmd_args = {}
+  var command = "INST-MAP";
+  var cmd_args = {};
   cmd_args['name'] = name;
   cmd = command + " " + JSON.stringify(cmd_args);
   sendCmdSrvCmd(cmd, genericCmdHandler);
