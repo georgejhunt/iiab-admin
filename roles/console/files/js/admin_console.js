@@ -26,6 +26,7 @@ var externalZimCatalog = {}; // catalog of zims on an external device
 var oer2goCatalog = {}; // catalog of rachel/oer2go modules, read from file downloaded from rachel
 var oer2goCatalogDate = new Date; // date of download, stored in json file
 var oer2goCatalogFilter = ["html"] // only manage these types as OER2GO; catalog can contain zims and kalite that we do elsewhere
+var mapCatalog = {}; // map regions specified by bounding boxes, downloadable
 var rachelStat = {}; // installed, enabled and whether content is installed and which is enabled
 
 var zimsInstalled = []; // list of zims already installed
@@ -251,6 +252,25 @@ function instContentButtonsEvents() {
     getOer2goStat();
     alert ("Selected OER2Go Items scheduled to be installed.\n\nPlease view Utilities->Display Job Status to see the results.");
     make_button_disabled("#INST-MODS", false);
+  });
+
+  $("#INST-MAP").click(function(){
+    var mod_id;
+    make_button_disabled("#INST-MAP", true);
+    selectedOer2goItems = []; // items no longer selected as are being installed
+    $('#map_select input').each( function(){
+      if (this.type == "radiobox")
+        if (this.checked){
+          mod_id = this.name;
+          if (mapInstalled.indexOf(mod_id) >= 0 || mod_id in mapWip)
+            consoleLog("Skipping installed Module " + mod_id);
+          else
+            instMapItem(mod_id);
+        }
+    });
+    getOer2goStat();
+    alert ("Selected Map Region scheduled to be installed.\n\nPlease view Utilities->Display Job Status to see the results.");
+    make_button_disabled("#INST-MAP", false);
   });
 
   $("#launchKaliteButton").click(function(){
