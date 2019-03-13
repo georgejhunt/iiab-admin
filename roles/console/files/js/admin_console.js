@@ -39,6 +39,7 @@ var oer2goDownloading = []; // list of Oer2go items being downloaded
 var oer2goCopying = []; // list of Oer2go items being copied
 var oer2goExternal = []; // list of Oer2go items on external device
 var downloadedFiles = {};
+var mapDownloading = []; // list of Map items being downloaded
 var externalDeviceContents = {}; // zims and other content on external devices, only one active at a time
 
 var langNames = []; // iso code, local name and English name for languages for which we have zims sorted by English name for language
@@ -259,16 +260,16 @@ function instContentButtonsEvents() {
     make_button_disabled("#INST-MAP", true);
     selectedOer2goItems = []; // items no longer selected as are being installed
     $('#map_select input').each( function(){
-      if (this.type == "radiobox")
+      if (this.type == "checkbox")
         if (this.checked){
-          mod_id = this.name;
-          if (mapInstalled.indexOf(mod_id) >= 0 || mod_id in mapWip)
-            consoleLog("Skipping installed Module " + mod_id);
+          map_id = this.name;
+          if (mapInstalled.indexOf(map_id) >= 0 || map_id in mapWip)
+            consoleLog("Skipping installed Module " + map_id);
           else
-            instMapItem(mod_id);
+            instMapItem(map_id);
         }
     });
-    getOer2goStat();
+    //getOer2goStat();
     alert ("Selected Map Region scheduled to be installed.\n\nPlease view Utilities->Display Job Status to see the results.");
     make_button_disabled("#INST-MAP", false);
   });

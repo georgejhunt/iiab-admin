@@ -12,7 +12,7 @@
 				<li class="active"><a href="#instConStart">Get Started</a></li>
 				<li><a href="#instConZims" call-after="checkKiwixCatalogDate">Get ZIM Files from Kiwix</a></li>
 				<li><a href="#instConOer2go" call-after="oer2goMenuOption">Get OER2GO(RACHEL) Modules</a></li>
-				<li><a href="#instOsmRegion">Get Map Region</a></li>
+				<li><a href="#instOsmRegion" call-after="refreshBoxLayer">Get Map Region</a></li>
 				<li><a href="#instConKAlite">Download Khan Academy Videos</a></li>
 				<li><a href="#instManageContent" call-after="manageContentInit">Manage Content</a></li>
 				<!-- <li><a href="#instRemoveContent" call-after="refreshAllInstalledList">Remove Content</a></li> -->
@@ -23,7 +23,7 @@
 				<button id="REFRESH-CONTENT-DISPLAY" type="button" class="btn btn-lg btn-success">Refresh Display</button>
 				<button id="MAKE-KIWIX-LIB" type="button" class="btn btn-lg btn-success">Reindex Kiwix Content</button>
 				<button id="KIWIX-LIB-REFRESH" type="button" class="btn btn-lg btn-success">Refresh Kiwix Catalog</button>
-				<button id="OER2GO-CAT-REFRESH" type="button" class="btn btn-lg btn-success">Refresh OER2Go Catalog</button>
+				<button id="OER2GO-CAT-REFRESH" type="button" class="btn btn-lg btn-success">Refresh OER2GO Catalog</button>
 			</div>
 		</div> <!-- left column -->
 		<div class="col-md-9"> <!-- Start right column -->
@@ -49,8 +49,8 @@
 					<div id="ZimDownload" >  </div>
 				</div> <!--  End instConZims Submenu Option Pane -->
 				<div class="tab-pane" id="instConOer2go"> <!-- Start instConOer2go Submenu Option Pane -->
-					<h2>Install OER2Go Modules</h2>
-					<p>OER2Go is a collection of educational content currated by World Possible and others.  This menu option allows you to select modules to download and install.</p>
+					<h2>Install OER2GO Modules</h2>
+					<p>OER2GO is a collection of educational content currated by World Possible and others.  This menu option allows you to select modules to download and install.</p>
 					<!--  <h3>PLEASE NOTE</h3>
 					<p>There is an error in one or two files of the current version of RACHEL in use here, so it may be necessary to <b>run this command a second time</b> if the job fails.</p>
 					-->
@@ -75,19 +75,21 @@
                      #map-container{
                        background-color: #b2d3f8; 
                        float: right;
-                       width: 80%;
+                       width: 75%;
                        right: 10px;
                        height: 500px;
                      }
                   </style>
+                  <div id="map-container"></div>
+                  <div id='regionlist'>placeholdr</div>
                   <script src="js/map_functions.js"></script>
-                  <script src="js/main.js"></script>
+                  <script src="/common/assets/map.js"></script>
                </div>
 				</div> <!--  End instOsmRegion Submenu Option Pane -->
             <script src="js/maps.js"></script>
 				<div class="tab-pane" id="instConKAlite"> <!-- Start instConKAlite Submenu Option Pane -->
 					<h2>Download Khan Academy Videos</h2>
-					<p>Khan Academy Lite has the ability to download selected portions of the available videos in several different languages.</p>
+					<p>Khan Academ Lite has the ability to download selected portions of the available videos in several different languages.</p>
 					<p>Click the Button below to launch it.</p>
 					<button id="launchKaliteButton" type="button" class="btn btn-lg btn-success">Launch KA Lite</button>
 				</div> <!--  End instConKAlite Submenu Option Pane -->
@@ -96,7 +98,7 @@
 					<h2>Manage Content</h2>
 					<div class="row">
 						<div class="col-sm-8">
-						  <p>This menu option allows you to copy content to and from external storage as well as remove it. Please note that only ZIM Modules and OER2Go(RACHEL) Modules are supported at this time. Please also note that external storage is expected to be mounted in /media.</p><p> For more Info please review <b>Help->Install Content->Manage Content</b>.
+						  <p>This menu option allows you to copy content to and from external storage as well as remove it. Please note that only ZIM Modules and OER2GO(RACHEL) Modules are supported at this time. Please also note that external storage is expected to be mounted in /media.</p><p> For more Info please review <b>Help->Install Content->Manage Content</b>.
 					    </p>
 							<table>
 								<thead>
@@ -143,7 +145,7 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-12">
-											<h3>Installed OER2Go(RACHEL) Modules: </h3>
+											<h3>Installed OER2GO(RACHEL) Modules: </h3>
 											<div id="installedOer2goModules" >  </div>
 										</div>
 									</div>
@@ -175,7 +177,7 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-12">
-											<h3>Available OER2Go(RACHEL) Modules: </h3>
+											<h3>Available OER2GO(RACHEL) Modules: </h3>
 											<div id="externalOer2goModules" >  </div>
 										</div>
 									</div>

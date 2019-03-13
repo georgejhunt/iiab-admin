@@ -73,7 +73,7 @@ function instMapItem(name) {
   cmd_args['name'] = name;
   cmd = command + " " + JSON.stringify(cmd_args);
   sendCmdSrvCmd(cmd, genericCmdHandler);
-  oer2goDownloading.push(name);
+  mapDownloading.push(name);
   //renderOer2goCatalog();
   return true;
 }
