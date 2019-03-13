@@ -62,24 +62,28 @@
   with_fileglob:
         - htmlf/*
 
-- name: Copy data for regional map selection
-  copy: src={{ item }}
-        dest="{{ admin_console_dir }}/maps"
-        mode=0644
-        owner=root
-        group=root
-  with_fileglob:
-        - maps/*
-
 - name: Fetch the javascript bundle with openlayers module, and map.js
   get_url:
-     src: "{{ iiab_download_url }}/map.js"
+     src: "{{ iiab_maps_url }}/map.js"
      dest: "{{ admin_console_dir }}/js/map.js"
 
 - name: Fetch the bounding box description for maps
   get_url:
-     src: "{{ iiab_download_url }}/bbox.json"
-     dest: "{{ iiab_config_dir }}/bbox.json"
+     src: "{{ iiab_maps_url }}/regions.json"
+     dest: "{{ iiab_config_dir }}/regions.json"
+
+- name: Install the script to update maps from map catalog
+  file:
+    src: maps/iiab-update-maps
+    dest: /usr/bin/iiab-update-maps
+
+- name: Generate the bounding bboxes.geojson file
+  shell: /usr/bin/iiab-update-maps
+ 
+- name: Copy the Countries geojson to assets
+  file: 
+    src: maps/countries.json
+    dest: "{{ doc_root }}/common/assets/"
 
 - name: Install admin-console config file
   template: src=admin-console.conf.j2
