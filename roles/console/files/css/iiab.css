@@ -129,6 +129,16 @@ border-radius: 8px 8px 0 0;
 	font-weight: 700;
 }
 
+.extract {
+  width: 30%;
+}
+.extract + .tooltip > .tooltip-inner {
+  background-color: #333;
+  /* filter: blur(30px); doesn't have any effect on underlay */
+  text-align: left;
+  max-width: 500px;
+  border-radius: .5em;
+}
 /* Util styles */
 
 #jobStatTable {

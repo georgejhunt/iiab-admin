@@ -85,6 +85,7 @@ function renderRegionList(checkbox) { // generic
   html += '</form>';
   //console.log(html);
   $( "#regionlist" ).html(html);
+  activateTooltip();
 }
 
 
@@ -94,20 +95,20 @@ function genRegionItem(region,checkbox) {
   console.log("in genRegionItem: " + region.name);
   var itemId = region.title;
   var ksize = region.size / 1000;
+  var mapToolTip = genMapTooltip(region);
 //console.log(html);
-  html += '<div  class="extract" data-region={"name":"' + region.name + '"}>';
+  html += '<div  class="extract" data-region={"name":"' + region.name +'"} ';
+  html += mapToolTip + '>';
   html += ' <label>';
   if ( checkbox ) {
       if (selectedOsmItems.indexOf(region.name) != -1)
          checked = 'checked';
       else
          checked = '';
-      html += '<input type="checkbox" name="' + region.name + '"';
+      html += '<input type="checkbox" name="' + region.name + '" ';
       html += ' onChange="updateOsmSpace(this)" ' + checked + '>';
   }
       html += itemId;
-  var mapToolTip = genMapTooltip(region);
-  html += '<span class="map-desc ' + colorClass + '"' + mapToolTip + '>&nbsp;&nbsp;' + itemId + '</span>';
   if ( checkbox ) { html +=  '</input>';};
   html += '</label>'; // end input
   html += ' Size: ' + readableSize(ksize);
@@ -122,7 +123,8 @@ function genMapTooltip(region) {
   var re = /^.*_(v[0-9]+\.[0-9]+)\.zip/;
   var url = region.url;
   var version = url.replace(re,'$1');
-  mapToolTip += 'Date: ' + region.date + "  Version: " + version;
+  mapToolTip += 'title="Osm Date: ' + region.date + "<BR>Map Version: " + version;
+  mapToolTip += '<BR>Satellite Date: ' + region.name + "<BR>Satellite Size: " + version + '"';
   //mapToolTip += 'title="<em><b>' + zim.description + '</b><BR>some more text that is rather long"';
   console.log(mapToolTip);
   return mapToolTip;
