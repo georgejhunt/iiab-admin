@@ -178,36 +178,23 @@ function updateOsmSpaceUtil(region, checked){
   displaySpaceAvail();
 }
 
-/*
-function totalSpace(){
-  // obsolete but perhaps useful in debugging since it worked
-  var sum = 0;
-  $( ".extract" ).each(function(ind,elem){
-    var data = JSON.parse($(this).attr('data-region'));
-    var region = data.name;
-    var size = parseInt(osmCatalog[region]['size']);
-    var chk = $( this ).find(':checkbox').prop("checked") == true;
-    if (chk && typeof size !== 'undefined')
-        sum += size;
-    });
-   var ksize = sum / 1000;
-  $( "#osmDiskSpace" ).html(readableSize(ksize));
-}
-
-$( '#instOsmRegion').on('click', function(evnt){
-   readOsmCatalog();
-   osm.render();
-});
-*/
 function renderOsm(){
    console.log('in renderOsm');
    window.map.setTarget($("#osm-container")[0]);
    window.map.render();
    renderRegionList(true);
 }
+
 function initOsm(){
-var dummy = 0;
-   sysStorage.osm_selected_size = 0;
-   $.when(readOsmCatalog(true)).then(renderRegionList);
+  var resp = $.ajax({
+     type: 'GET',
+     url: mapAssetsDir + 'regions.json',
+  })
+  .done(function() {
+     sysStorage.osm_selected_size = 0;
+     $.when(readOsmCatalog(true)).then(renderRegionList);
+  })
+  // if IIAB osm-vector not installed, fail gracefully
+  .fail(return true);
 }
 
