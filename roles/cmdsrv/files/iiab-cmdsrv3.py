@@ -2015,20 +2015,35 @@ def install_osm_vect_set(cmd_info):
     # at this point we can create all the jobs
 
     download_url = maps_catalog['regions'][map_id]['detail_url'] # https://archive.org/download/san_jose_z11-z14_2017.mbtiles/san_jose_z11-z14_2017.mbtiles
-    mbtiles_name = download_url.split('/')[-1] # san_jost_z11-z14_2-17.mbtiles
+    mbtiles_name = download_url.split('/')[-1] # san_jose_z11-z14_2017.mbtiles
     download_file = maps_downloads_dir + mbtiles_name
 
-    # download detail mbtiles file into permanent resting place
-    job_command = "/usr/bin/wget -N -c --progress=dot:giga " + download_url + " -O " + download_file
-    job_id = request_one_job(cmd_info, job_command, 1, -1, "Y")
-    print job_command
+    if not os.path.isfile(download_file):
+       # download detail mbtiles file into permanent resting place
+       job_command = "/usr/bin/wget -N -c --progress=dot:giga " + download_url + " -O " + download_file
+       job_id = request_one_job(cmd_info, job_command, 1, -1, "Y")
+       print(job_command)
 
-    # download the base mbtiles for osm (zoom 10) and satellite (zoom 9)
-    job_command = "scripts/osm-vect_install_step2.sh"
-    job_command +=  " " + map_id
+    # download the base mbtiles for osm (zoom 10)
+    mbtiles_name = maps_osm_url.split('/')[-1]
+    download_file = maps_viewer_dir + mbtiles_name
+    if not os.path.isfile(download_file):
+       job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_osm_url + " -O " + download_file
+       job_id = request_one_job(cmd_info, job_command, 2, -1, "Y")
+       print(job_command)
 
-    print job_command
-    resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=2, depend_on_job_id=job_id, has_dependent="N")
+    # download the base mbtiles for satellite (zoom 9)
+    mbtiles_name = maps_sat_url.split('/')[-1]
+    download_file = maps_viewer_dir + mbtiles_name
+    if not os.path.isfile(download_file):
+       job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_sat_url + " -O " + download_file
+       job_id = request_one_job(cmd_info, job_command, 3, -1, "Y")
+       print(job_command)
+
+    # run the python script that fixes up symbolic links
+    job_command = 'scripts/map_fixup.py' + ' ' + map_id
+   
+    resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=4, depend_on_job_id=job_id, has_dependent="N")
 
     return resp
 
