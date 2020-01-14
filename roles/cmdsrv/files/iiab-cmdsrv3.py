@@ -2014,29 +2014,21 @@ def install_osm_vect_set(cmd_info):
 
     # at this point we can create all the jobs
 
-    download_url = maps_catalog['regions'][map_id]['url'] # https://archive.org/download/en-osm-omt_north_america_2017-07-03_v0.1/en-osm-omt_north_america_2017-07-03_v0.1.zip
-    zip_name = download_url.split('/')[-1] # en-osm-omt_north_america_2017-07-03_v0.1.zip
-    download_file = maps_downloads_dir + zip_name
-    unzipped_dir = maps_working_dir + zip_name.split('.zip')[0]
+    download_url = maps_catalog['regions'][map_id]['detail_url'] # https://archive.org/download/san_jose_z11-z14_2017.mbtiles/san_jose_z11-z14_2017.mbtiles
+    mbtiles_name = download_url.split('/')[-1] # san_jost_z11-z14_2-17.mbtiles
+    download_file = maps_downloads_dir + mbtiles_name
 
-    # download zip file
-    job_command = "/usr/bin/wget -c --progress=dot:giga " + download_url + " -O " + download_file
+    # download detail mbtiles file into permanent resting place
+    job_command = "/usr/bin/wget -N -c --progress=dot:giga " + download_url + " -O " + download_file
     job_id = request_one_job(cmd_info, job_command, 1, -1, "Y")
-    #print job_command
+    print job_command
 
-    # unzip
-    job_command = "/usr/bin/unzip -uo " + download_file + " -d " + maps_working_dir
-    job_id = request_one_job(cmd_info, job_command, 2, job_id, "Y")
-    #print job_command
+    # download the base mbtiles for osm (zoom 10) and satellite (zoom 9)
+    job_command = "scripts/osm-vect_install_step2.sh"
+    job_command +=  " " + map_id
 
-    # move to location and clean up
-    job_command = "scripts/osm-vect_install_step3.sh"
-    job_command +=  " " + unzipped_dir
-    job_command +=  " " + vector_map_path
-    job_command +=  " " + download_file
-
-    #print job_command
-    resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=3, depend_on_job_id=job_id, has_dependent="N")
+    print job_command
+    resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=2, depend_on_job_id=job_id, has_dependent="N")
 
     return resp
 
