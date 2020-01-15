@@ -2016,31 +2016,31 @@ def install_osm_vect_set(cmd_info):
 
     download_url = maps_catalog['regions'][map_id]['detail_url'] # https://archive.org/download/san_jose_z11-z14_2017.mbtiles/san_jose_z11-z14_2017.mbtiles
     mbtiles_name = download_url.split('/')[-1] # san_jose_z11-z14_2017.mbtiles
-    download_file = maps_downloads_dir + mbtiles_name
+    download_file = maps_working_dir + mbtiles_name
 
     seq =  1
     job_id = -1
     if not os.path.isfile(download_file):
        # download detail mbtiles file into permanent resting place
-       job_command = "/usr/bin/wget -N -c --progress=dot:giga " + download_url + " -O " + download_file
+       job_command = "/usr/bin/wget -c --progress=dot:giga " + download_url + " -O " + download_file
        job_id = request_one_job(cmd_info, job_command, seq, job_id, "Y")
        seq += 1
        print(job_command)
 
     # download the base mbtiles for osm (zoom 10)
     mbtiles_name = maps_osm_url.split('/')[-1]
-    download_file = maps_viewer_dir + mbtiles_name
+    download_file = maps_working_dir + mbtiles_name
     if not os.path.isfile(download_file):
-       job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_osm_url + " -O " + download_file
+       job_command = "/usr/bin/wget -c --progress=dot:giga " + maps_osm_url + " -O " + download_file
        job_id = request_one_job(cmd_info, job_command, seq, job_id, "Y")
        seq += 1
        print(job_command)
 
     # download the base mbtiles for satellite (zoom 9)
     mbtiles_name = maps_sat_url.split('/')[-1]
-    download_file = maps_viewer_dir + mbtiles_name
+    download_file = maps_working_dir + mbtiles_name
     if not os.path.isfile(download_file):
-       job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_sat_url + " -O " + download_file
+       job_command = "/usr/bin/wget -c --progress=dot:giga " + maps_sat_url + " -O " + download_file
        job_id = request_one_job(cmd_info, job_command, seq, job_id, "Y")
        seq += 1
        print(job_command)
