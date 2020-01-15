@@ -3049,6 +3049,8 @@ def app_config():
     maps_working_dir = conf['maps_working_dir']
     maps_catalog_url  = conf['maps_catalog_url']
     maps_catalog_file  = conf['maps_catalog_file']
+    maps_osm_url = conf['maps_osm_url']
+    maps_sat_url = conf['maps_sat_url']
     vector_map_path  = conf['vector_map_path']
     js_menu_dir = conf['js_menu_dir']
     squid_service = conf['squid_service']
