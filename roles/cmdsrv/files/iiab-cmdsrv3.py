@@ -2998,6 +2998,9 @@ def app_config():
     global maps_working_dir
     global maps_catalog_url
     global maps_catalog_file
+    global maps_osm_url
+    global maps_sat_url
+    global maps_viewer_dir
     global vector_map_path
     global modules_dir
     global js_menu_dir
@@ -3051,6 +3054,7 @@ def app_config():
     maps_catalog_file  = conf['maps_catalog_file']
     maps_osm_url = conf['maps_osm_url']
     maps_sat_url = conf['maps_sat_url']
+    maps_viewer_dir = conf['maps_viewer_dir']
     vector_map_path  = conf['vector_map_path']
     js_menu_dir = conf['js_menu_dir']
     squid_service = conf['squid_service']
