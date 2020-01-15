@@ -2023,7 +2023,7 @@ def install_osm_vect_set(cmd_info):
     if not os.path.isfile(download_file):
        # download detail mbtiles file into permanent resting place
        job_command = "/usr/bin/wget -N -c --progress=dot:giga " + download_url + " -O " + download_file
-       job_id = request_one_job(cmd_info, job_command, seq, -1, "Y")
+       job_id = request_one_job(cmd_info, job_command, seq, job_id, "Y")
        seq += 1
        print(job_command)
 
@@ -2032,7 +2032,7 @@ def install_osm_vect_set(cmd_info):
     download_file = maps_viewer_dir + mbtiles_name
     if not os.path.isfile(download_file):
        job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_osm_url + " -O " + download_file
-       job_id = request_one_job(cmd_info, job_command, seq, -1, "Y")
+       job_id = request_one_job(cmd_info, job_command, seq, job_id, "Y")
        seq += 1
        print(job_command)
 
@@ -2041,7 +2041,7 @@ def install_osm_vect_set(cmd_info):
     download_file = maps_viewer_dir + mbtiles_name
     if not os.path.isfile(download_file):
        job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_sat_url + " -O " + download_file
-       job_id = request_one_job(cmd_info, job_command, seq, -1, "Y")
+       job_id = request_one_job(cmd_info, job_command, seq, job_id, "Y")
        seq += 1
        print(job_command)
 
