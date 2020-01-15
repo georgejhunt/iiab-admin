@@ -104,7 +104,7 @@ function genRegionItem(region,checkbox) {
       checked = 'checked';
     else
       checked = '';
-      html += '<input type="checkbox" name="' + region.url + '"';
+      html += '<input type="checkbox" name="' + region.detail_url + '"';
       html += ' onChange="updateMapSpace(this)" ' + checked + '> ';
   }
   html += itemId;
@@ -120,7 +120,7 @@ function genRegionItem(region,checkbox) {
 function get_region_from_url(url){
   for (const region in mapCatalog ){
     if (mapCatalog[region].hasOwnProperty('url') &&
-      mapCatalog[region].url === url ){
+      mapCatalog[region].detail_url === url ){
       return mapCatalog[region].name;
     }
   }

@@ -2018,10 +2018,13 @@ def install_osm_vect_set(cmd_info):
     mbtiles_name = download_url.split('/')[-1] # san_jose_z11-z14_2017.mbtiles
     download_file = maps_downloads_dir + mbtiles_name
 
+    seq =  1
+    job_id = -1
     if not os.path.isfile(download_file):
        # download detail mbtiles file into permanent resting place
        job_command = "/usr/bin/wget -N -c --progress=dot:giga " + download_url + " -O " + download_file
-       job_id = request_one_job(cmd_info, job_command, 1, -1, "Y")
+       job_id = request_one_job(cmd_info, job_command, seq, -1, "Y")
+       seq += 1
        print(job_command)
 
     # download the base mbtiles for osm (zoom 10)
@@ -2029,7 +2032,8 @@ def install_osm_vect_set(cmd_info):
     download_file = maps_viewer_dir + mbtiles_name
     if not os.path.isfile(download_file):
        job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_osm_url + " -O " + download_file
-       job_id = request_one_job(cmd_info, job_command, 2, -1, "Y")
+       job_id = request_one_job(cmd_info, job_command, seq, -1, "Y")
+       seq += 1
        print(job_command)
 
     # download the base mbtiles for satellite (zoom 9)
@@ -2037,13 +2041,14 @@ def install_osm_vect_set(cmd_info):
     download_file = maps_viewer_dir + mbtiles_name
     if not os.path.isfile(download_file):
        job_command = "/usr/bin/wget -N -c --progress=dot:giga " + maps_sat_url + " -O " + download_file
-       job_id = request_one_job(cmd_info, job_command, 3, -1, "Y")
+       job_id = request_one_job(cmd_info, job_command, seq, -1, "Y")
+       seq += 1
        print(job_command)
 
     # run the python script that fixes up symbolic links
     job_command = 'scripts/map_fixup.py' + ' ' + map_id
    
-    resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=4, depend_on_job_id=job_id, has_dependent="N")
+    resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=seq, depend_on_job_id=job_id, has_dependent="N")
 
     return resp
 
