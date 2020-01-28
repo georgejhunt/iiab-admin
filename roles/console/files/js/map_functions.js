@@ -107,11 +107,11 @@ function genRegionItem(region,checkbox) {
       checked = '';
       html += '<input type="checkbox" name="' + region.detail_url + '"';
       html += ' onChange="updateMapSpace(this)" ' + checked + '> ';
+      html += '</input>';;
   }
+  html += '</label>'; // end input
   var mapToolTip = genMapTooltip(region);
   html += '<span class="map-desc ' + colorClass + '"' + mapToolTip + '>&nbsp;&nbsp;' + itemId + '</span>';
-  if ( checkbox ) { html += '</input>';};
-  html += '</label>'; // end input
   html += ' ' + readableSize(ksize);
   html += '</div>';
   //console.log(html);
