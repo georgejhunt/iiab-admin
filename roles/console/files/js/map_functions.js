@@ -93,6 +93,7 @@ function renderRegionList(checkbox) { // generic
 
 function genRegionItem(region,checkbox) {
   var html = "";
+  var colorClass = "";
   console.log("in genRegionItem: " + region.name);
   var itemId = region.title;
   var ksize = region.size / 1000;
@@ -107,7 +108,8 @@ function genRegionItem(region,checkbox) {
       html += '<input type="checkbox" name="' + region.detail_url + '"';
       html += ' onChange="updateMapSpace(this)" ' + checked + '> ';
   }
-  html += itemId;
+  var mapToolTip = genMapTooltip(region);
+  html += '<span class="map-desc ' + colorClass + '"' + mapToolTip + '>&nbsp;&nbsp;' + itemId + '</span>';
   if ( checkbox ) { html += '</input>';};
   html += '</label>'; // end input
   html += ' ' + readableSize(ksize);
@@ -115,6 +117,17 @@ function genRegionItem(region,checkbox) {
   //console.log(html);
 
   return html;
+}
+
+function genMapTooltip(region) {
+  var mapToolTip = ' data-toggle="tooltip" data-placement="top" data-html="true" ';
+  var re = /^.*_(v[0-9]+\.[0-9]+)\.zip/;
+  var url = region.url;
+  var version = url.replace(re,'$1');
+  mapToolTip += 'Date: ' + region.date + "  Version: " + version;
+  //mapToolTip += 'title="<em><b>' + zim.description + '</b><BR>some more text that is rather long"';
+  console.log(mapToolTip);
+  return mapToolTip;
 }
 
 function get_region_from_url(url){
