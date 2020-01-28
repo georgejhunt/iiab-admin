@@ -150,6 +150,16 @@ border-radius: 8px 8px 0 0;
 	font-weight: 700;
 }
 
+.extract {
+  width: 30%;
+}
+.extract + .tooltip > .tooltip-inner {
+  background-color: #333;
+  /* filter: blur(30px); doesn't have any effect on underlay */
+  text-align: left;
+  max-width: 500px;
+  border-radius: .5em;
+}
 /* Util styles */
 
 #jobStatTable {
@@ -271,30 +281,3 @@ border-radius: 8px 8px 0 0;
 #INST-MAP {
   margin-bottom: 10px;
 }
-.osm-desc {
-	display: inline-block;
-  width: 50%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  vertical-align: text-bottom;
-  white-space: nowrap;
-  margin-right: 8px;
-}
-
-.osm-desc:hover {
-  font-weight:bold;
-}
-
-.osm-desc + .tooltip > .tooltip-inner {
-  background-color: #333;
-  /* filter: blur(30px); doesn't have any effect on underlay */
-  text-align: left;
-  max-width: 500px;
-  border-radius: 1.5em;
-}
-.osm-desc + .tooltip > .tooltip-inner h3 {
-  text-align: center;
-	font-size: 16px;
-	font-weight: 700;
-}
-
