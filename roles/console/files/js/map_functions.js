@@ -88,6 +88,7 @@ function renderRegionList(checkbox) { // generic
   html += '</form>';
   //console.log(html);
   $( "#mapRegionSelectList" ).html(html);
+  activateTooltip();
 }
 
 
@@ -118,13 +119,19 @@ function genRegionItem(region,checkbox) {
 
   return html;
 }
+function basename(path) {
+     return path.replace(/.*\//, '');
+}
+
 
 function genMapTooltip(region) {
   var mapToolTip = ' data-toggle="tooltip" data-placement="top" data-html="true" ';
   var re = /^.*_(v[0-9]+\.[0-9]+)\.zip/;
   var url = region.url;
   var version = url.replace(re,'$1');
-  mapToolTip += 'Date: ' + region.date + "  Version: " + version;
+  mapToolTip += 'title="';
+  mapToolTip += 'Date: ' + region.date + "  Version: " + version + '<br>';
+  mapToolTip += 'File: ' + basename(region.detail_url) +'"';
   //mapToolTip += 'title="<em><b>' + zim.description + '</b><BR>some more text that is rather long"';
   console.log(mapToolTip);
   return mapToolTip;
