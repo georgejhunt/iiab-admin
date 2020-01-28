@@ -150,9 +150,9 @@ function get_region_from_url(url){
 function instMapItem(map_url) {
   var command = "INST-OSM-VECT-SET";
   var cmd_args = {};
-  region_id = get_region_from_url(map_url);
-  if ( !region_id ) return false;
-  cmd_args['osm_vect_id'] = region_id;
+  //region_id = get_region_from_url(map_url);
+  //if ( !region_id ) return false;
+  cmd_args['osm_vect_id'] = map_url;
   cmd = command + " " + JSON.stringify(cmd_args);
   sendCmdSrvCmd(cmd, genericCmdHandler);
   mapDownloading.push(map_url);

@@ -2005,16 +2005,13 @@ def install_osm_vect_set(cmd_info):
     global jobs_requested
 
     if 'cmd_args' in cmd_info:
-        map_id = cmd_info['cmd_args']['osm_vect_id']
-        if map_id not in maps_catalog['regions']:
-            resp = cmd_error(cmd='INST-OSM-VECT-SET', msg='Region is not in catalog in Command')
-            return resp
+        download_url = cmd_info['cmd_args']['osm_vect_id']
     else:
         return cmd_malformed(cmd_info['cmd'])
 
     # at this point we can create all the jobs
 
-    download_url = maps_catalog['regions'][map_id]['detail_url'] # https://archive.org/download/san_jose_z11-z14_2017.mbtiles/san_jose_z11-z14_2017.mbtiles
+    #download_url = maps_catalog['regions'][map_id]['detail_url'] # https://archive.org/download/san_jose_z11-z14_2017.mbtiles/san_jose_z11-z14_2017.mbtiles
     mbtiles_name = download_url.split('/')[-1] # san_jose_z11-z14_2017.mbtiles
     download_file = maps_working_dir + mbtiles_name
     target_file = maps_downloads_dir + mbtiles_name
@@ -2049,7 +2046,7 @@ def install_osm_vect_set(cmd_info):
        print(job_command)
 
     # run the python script that fixes up symbolic links
-    job_command = 'scripts/osm-fixup.py' + ' ' + map_id + ' ' + cmdsrv_dir
+    job_command = 'scripts/osm-fixup.py' + ' ' + download_url + ' ' + cmdsrv_dir
    
     resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=seq, depend_on_job_id=job_id, has_dependent="N")
 
