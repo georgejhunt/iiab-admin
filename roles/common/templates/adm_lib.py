@@ -633,6 +633,7 @@ def get_map_catalog():
         reg_str = regions.read()
         map_catalog = json.loads(reg_str)
     #print(json.dumps(map_catalog, indent=2))
+    return map_catalog
 
 def get_map_menu_defs(intended_use='map'):
     menu_def_list = []
@@ -653,6 +654,13 @@ def get_map_menu_defs(intended_use='map'):
                 menu_def_list.append(map_name)
     return menu_def_list
 
+def get_region_from_tile(filename):
+    get_map_catalog()
+    regions = map_catalog['regions']
+    for region in regions.keys():
+       if os.path.basename(regions[region]['detail_url']) == filename: return region
+    return ''
+   
 def get_installed_regions():
     installed = []
     os.chdir(CONST.map_doc_root)
@@ -663,6 +671,17 @@ def get_installed_regions():
     # add the splash page if no other maps are present
     if len(installed) == 0:
         installed.append('maplist')
+    return installed
+
+
+def get_installed_tiles():
+    installed = []
+    os.chdir(CONST.map_doc_root + '/viewer/tiles')
+    for filename in os.listdir('.'):
+        if filename[0:3] == 'sat' or filename[0:3] == 'osm': continue
+        region = get_region_from_tile(filename)
+        if region != '':
+           installed.append(filename)
     return installed
 
 def read_vector_map_idx():
@@ -678,8 +697,7 @@ def write_vector_map_idx(installed_maps):
     map_dict = {}
     idx_dict = {}
     for fname in installed_maps:
-        region = extract_region_from_filename(fname)
-        if map == 'maplist': continue # not a real region
+        region = get_region_from_tile(fname)
         map_dict = map_catalog['regions'].get(region, '')
         if map_dict == '': continue
 

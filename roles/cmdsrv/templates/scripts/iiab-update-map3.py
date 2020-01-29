@@ -17,9 +17,9 @@ def main():
     map_menu_def_list = adm.get_map_menu_defs()
     previous_idx = adm.read_vector_map_idx()
 
-    installed_maps = adm.get_installed_regions()
+    installed_tiles = adm.get_installed_tiles()
 
-    adm.write_vector_map_idx(installed_maps)
+    adm.write_vector_map_idx(installed_tiles)
 
     # For installed regions, check that a menu def exists, and it's on home page
     for fname in installed_maps:
