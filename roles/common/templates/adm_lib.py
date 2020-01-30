@@ -704,7 +704,7 @@ def write_vector_map_idx(installed_maps):
         # Create the idx file in format required bo js-menu system
         item = map_dict['perma_ref']
         idx_dict[item] = {}
-        idx_dict[item]['file_name'] = os.path.basename(map_dict['url'][:-4])
+        idx_dict[item]['file_name'] = os.path.basename(map_dict['detail_url'])
         idx_dict[item]['menu_item'] = map_dict['perma_ref']
         idx_dict[item]['size'] = map_dict['size']
         idx_dict[item]['date'] = map_dict['date']

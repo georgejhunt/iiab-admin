@@ -20,6 +20,7 @@ function getMapStat(){
   readMapIdx();
 }
 
+var map_idx = {};
 function readMapIdx(){
 	//consoleLog ("in readMapIdx");
   var resp = $.ajax({
@@ -28,10 +29,9 @@ function readMapIdx(){
     dataType: 'json'
   })
   .done(function( data ) {
-  	//mapInstalled = data['regions'];
    consoleLog (data);
+   map_idx = data;
    mapInstalled = [];
-   //mapInstalled = Object.keys(data);
    for (var map in data) {
    	 consoleLog (map)
      if (data[map]) {
@@ -91,6 +91,11 @@ function renderRegionList(checkbox) { // generic
   activateTooltip();
 }
 
+function map_is_installed(mapname){
+  for (var key in map_idx)
+    if (key && map_idx[key].file_name == basename(mapname)) return true
+  return false;
+}
 
 function genRegionItem(region,checkbox) {
   var html = "";
@@ -98,7 +103,8 @@ function genRegionItem(region,checkbox) {
   console.log("in genRegionItem: " + region.name);
   var itemId = region.title;
   var ksize = region.size / 1000;
-  //console.log(html);
+  // is this region already insalled?
+  if (map_is_installed(region.detail_url)) colorClass = 'installed';
   html += '<div class="extract" data-region={"name":"' + region.name + '"}> ';
   html += '<label>';
   if ( checkbox ) {
