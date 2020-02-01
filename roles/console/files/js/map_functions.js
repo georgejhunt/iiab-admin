@@ -1,7 +1,7 @@
 // map_functions.js
 // copyright 2019 George Hunt
 
-var regionList = [];
+var mapList = [];
 var mapAssetsDir = '/osm-vector-maps/maplist/assets/';
 
 function instMapError(data, cmd_args) {
@@ -47,20 +47,20 @@ function readMapIdx(){
 
 function readMapCatalog(){
 	//console.log ("in readMapCalalog");
-	// read regions.json from common/assets in case osm vectors not installed
-  regionList = [];
+	// read map-catalog.json from common/assets in case osm vectors not installed
+  mapList = [];
   var resp = $.ajax({
     type: 'GET',
-    url: consoleJsonDir + 'regions.json',
+    url: consoleJsonDir + 'map-catalog.json',
     dataType: 'json'
   })
   .done(function( data ) {
-  	 regionJson = data;
-    mapCatalog = regionJson['regions'];
+  	 mapJson = data;
+    mapCatalog = mapJson['maps'];
     for(var key in mapCatalog){
       //console.log(key + '  ' + mapCatalog[key]['title']);
       mapCatalog[key]['name'] = key;
-      regionList.push(mapCatalog[key]);
+      mapList.push(mapCatalog[key]);
     }
   })
   .fail(jsonErrhandler);
@@ -69,8 +69,8 @@ function readMapCatalog(){
 
 function renderRegionList(checkbox) { // generic
 	var html = "";
-   // order the regionList by seq number
-   var regions = regionList;
+   // order the mapList by seq number
+   var regions = mapList;
 	console.log ("in renderRegionList");
 
 	// sort on basis of seq
@@ -202,7 +202,7 @@ function renderMap(){
    renderRegionList(true);
 }
 function initMap(){
-   var url =  mapAssetsDir + 'regions.json';
+   var url =  mapAssetsDir + 'map-catalog.json';
    sysStorage.map_selected_size = 0; // always set to 0
    if (UrlExists(url)){
       $.when(getMapStat()).then(renderRegionList);

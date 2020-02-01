@@ -628,9 +628,9 @@ def check_jpg_png(selector):
 
 def get_map_catalog():
     global map_catalog
-    input_json = CONST.map_doc_root + '/maplist/assets/regions.json'
-    with open(input_json, 'r') as regions:
-        reg_str = regions.read()
+    input_json = CONST.map_doc_root + '/maplist/assets/map-catalog.json'
+    with open(input_json, 'r') as maps:
+        reg_str = maps.read()
         map_catalog = json.loads(reg_str)
     #print(json.dumps(map_catalog, indent=2))
     return map_catalog
@@ -655,11 +655,7 @@ def get_map_menu_defs(intended_use='map'):
     return menu_def_list
 
 def get_region_from_tile(filename):
-    get_map_catalog()
-    regions = map_catalog['regions']
-    for region in regions.keys():
-       if os.path.basename(regions[region]['detail_url']) == filename: return region
-    return ''
+    return filename
    
 def get_installed_regions():
     installed = []
@@ -679,9 +675,7 @@ def get_installed_tiles():
     os.chdir(CONST.map_doc_root + '/viewer/tiles')
     for filename in os.listdir('.'):
         if filename[0:3] == 'sat' or filename[0:3] == 'osm': continue
-        region = get_region_from_tile(filename)
-        if region != '':
-           installed.append(filename)
+        installed.append(filename)
     return installed
 
 def read_vector_map_idx():
@@ -697,8 +691,7 @@ def write_vector_map_idx(installed_maps):
     map_dict = {}
     idx_dict = {}
     for fname in installed_maps:
-        region = get_region_from_tile(fname)
-        map_dict = map_catalog['regions'].get(region, '')
+        map_dict = map_catalog['maps'].get(fname, '')
         if map_dict == '': continue
 
         # Create the idx file in format required bo js-menu system
@@ -708,7 +701,7 @@ def write_vector_map_idx(installed_maps):
         idx_dict[item]['menu_item'] = map_dict['perma_ref']
         idx_dict[item]['size'] = map_dict['size']
         idx_dict[item]['date'] = map_dict['date']
-        idx_dict[item]['region'] = region
+        idx_dict[item]['region'] = map_dict['region']
         idx_dict[item]['language'] = map_dict['perma_ref'][:2]
 
     with open(CONST.vector_map_idx_dir + '/vector-map-idx.json', 'w') as idx:
