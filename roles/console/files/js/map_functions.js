@@ -129,15 +129,23 @@ function basename(path) {
      return path.replace(/.*\//, '');
 }
 
-
-function genMapTooltip(region) {
+function getInstalledVersion(permaRef){
+   if (permaRef == '') return ''
+   readMapIdx();
+   if (permaRef in map_idx) return map_idx[permaRef].file_name;
+   return ''
+}
+   
+function genMapTooltip(map) {
   var mapToolTip = ' data-toggle="tooltip" data-placement="top" data-html="true" ';
   var re = /^.*_(v[0-9]+\.[0-9]+)\.zip/;
-  var url = region.url;
+  var url = map.url;
+  var installed = getInstalledVersion(map.perma_ref);
   var version = url.replace(re,'$1');
   mapToolTip += 'title="';
-  mapToolTip += 'Date: ' + region.date + "  Version: " + version + '<br>';
-  mapToolTip += 'File: ' + basename(region.detail_url) +'"';
+  mapToolTip += 'Date: ' + map.date + "  Version: " + version + '<br>';
+  mapToolTip += 'Available: ' + basename(map.detail_url) +'<br>';
+  mapToolTip += 'Installed: '+ installed + '"';
   //mapToolTip += 'title="<em><b>' + zim.description + '</b><BR>some more text that is rather long"';
   console.log(mapToolTip);
   return mapToolTip;
