@@ -22,24 +22,23 @@ def main():
     adm.write_vector_map_idx(installed_tiles)
 
     # For installed regions, check that a menu def exists, and it's on home page
-    for fname in installed_maps:
-        region = adm.extract_region_from_filename(fname)
+    for map in installed_tiles:
         if region == 'maplist': # it is the splash page, display only if no others
             menu_item_name = 'en-map_test'
             map_item = { "perma_ref" : menu_item_name }
             if len(installed_maps) == 1:
                 adm.update_menu_json(menu_item_name)
                 return
-        elif region not in adm.map_catalog['regions']:
-            print("Skipping unknown map " + fname)
+        if map not in adm.map_catalog['maps'].keys():
+            print("Skipping unknown map " + map)
             continue
         else:
-            map_item = adm.map_catalog['regions'][region]
+            map_item = adm.map_catalog['maps'][map]
             menu_item_name = map_item['perma_ref']
 
             if not (menu_item_name in map_menu_def_list):
                 print('Creating menu def for %s'%menu_item_name)
-                adm.create_map_menu_def(region, menu_item_name, map_item)
+                adm.create_map_menu_def(map, menu_item_name, map_item)
         # if autoupdate allowed and this is a new region then add to home menu
         if adm.fetch_menu_json_value('autoupdate_menu') and menu_item_name not in previous_idx:
             print('Auto-update of menu items is enabled. Adding %s'%region)
