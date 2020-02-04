@@ -34,7 +34,7 @@ def main():
 
             if not (menu_item_name in map_menu_def_list):
                 print('Creating menu def for %s'%menu_item_name)
-                adm.create_map_menu_def(region, menu_item_name, map_item)
+                adm.create_map_menu_def(map, menu_item_name, map_item)
 
         # if autoupdate allowed and this is a new region then add to home menu
         if adm.fetch_menu_json_value('autoupdate_menu') and menu_item_name not in previous_idx:

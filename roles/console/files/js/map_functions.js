@@ -67,11 +67,11 @@ function readMapCatalog(){
   return resp;
 }
 
-function renderRegionList(checkbox) { // generic
+function renderMapList(checkbox) { // generic
 	var html = "";
    // order the mapList by seq number
    var regions = mapList;
-	console.log ("in renderRegionList");
+	console.log ("in renderMapList");
 
 	// sort on basis of seq
   regions = regions.sort(function(a,b){
@@ -83,7 +83,7 @@ function renderRegionList(checkbox) { // generic
    html += '<form>';
 	regions.forEach((region, index) => { // now render the html
       //console.log(region.title + " " +region.seq);
-      html += genRegionItem(region,checkbox);
+      html += genMapItem(region,checkbox);
   });
   html += '</form>';
   //console.log(html);
@@ -97,15 +97,15 @@ function map_is_installed(mapname){
   return false;
 }
 
-function genRegionItem(region,checkbox) {
+function genMapItem(region,checkbox) {
   var html = "";
   var colorClass = "";
-  console.log("in genRegionItem: " + region.name);
+  console.log("in genMapItem: " + region.name);
   var itemId = region.title;
   var ksize = region.size / 1000;
   // is this region already insalled?
   if (map_is_installed(region.detail_url)) colorClass = 'installed';
-  html += '<div class="extract" data-region={"name":"' + region.name + '"}> ';
+  html += '<div class="extract" data-region={"name":"' + region.region + '"}> ';
   html += '<label>';
   if ( checkbox ) {
     if (selectedMapItems.indexOf(region.name) != -1)
@@ -129,15 +129,23 @@ function basename(path) {
      return path.replace(/.*\//, '');
 }
 
-
-function genMapTooltip(region) {
+function getInstalledVersion(permaRef){
+   if (permaRef == '') return ''
+   readMapIdx();
+   if (permaRef in map_idx) return map_idx[permaRef].file_name;
+   return ''
+}
+   
+function genMapTooltip(map) {
   var mapToolTip = ' data-toggle="tooltip" data-placement="top" data-html="true" ';
   var re = /^.*_(v[0-9]+\.[0-9]+)\.zip/;
-  var url = region.url;
+  var url = map.url;
+  var installed = getInstalledVersion(map.perma_ref);
   var version = url.replace(re,'$1');
   mapToolTip += 'title="';
-  mapToolTip += 'Date: ' + region.date + "  Version: " + version + '<br>';
-  mapToolTip += 'File: ' + basename(region.detail_url) +'"';
+  mapToolTip += 'Date: ' + map.date + "  Version: " + version + '<br>';
+  mapToolTip += 'Available: ' + basename(map.detail_url) +'<br>';
+  mapToolTip += 'Installed: '+ installed + '"';
   //mapToolTip += 'title="<em><b>' + zim.description + '</b><BR>some more text that is rather long"';
   console.log(mapToolTip);
   return mapToolTip;
@@ -199,13 +207,13 @@ function renderMap(){
    console.log('in renderMap');
    window.map.setTarget($("#map-container")[0]);
    window.map.render();
-   renderRegionList(true);
+   renderMapList(true);
 }
 function initMap(){
    var url =  mapAssetsDir + 'map-catalog.json';
    sysStorage.map_selected_size = 0; // always set to 0
    if (UrlExists(url)){
-      $.when(getMapStat()).then(renderRegionList);
+      $.when(getMapStat()).then(renderMapList);
    }
 }
 function UrlExists(url)
