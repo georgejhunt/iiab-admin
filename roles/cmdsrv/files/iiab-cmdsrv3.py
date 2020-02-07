@@ -2046,7 +2046,7 @@ def install_osm_vect_set(cmd_info):
        print(job_command)
 
     # run the python script that fixes up symbolic links
-    job_command = 'scripts/osm-fixup.py' + ' ' + download_url + ' ' + cmdsrv_dir
+    job_command = 'scripts/osm-fixup.py' + ' ' + os.path.basename(download_url) + ' ' + cmdsrv_dir
    
     resp = request_job(cmd_info=cmd_info, job_command=job_command, cmd_step_no=seq, depend_on_job_id=job_id, has_dependent="N")
 
